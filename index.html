@@ -65,6 +65,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-我的第三篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-08-12T02:21:57.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">关于hexo上传图片的显示问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        一直被图片显示的问题困扰，昨晚终于算是解决了这个问题，虽然不是个完美的解决方案。</p>
+<p>​        第一次上传博客就发现了这个问题，只要本地图片上传就无法显示，而用Markdown语法直接复制图片链接上传之后则可以显示，相当于采用外链的方式。网上有很多解决本地图片上传无法显示的帖子，都尝试后发现还是无法解决。无奈只能本地图片也考虑采用外链引用的方式，我先把图片上传到微博，然后直接在微博上复制图片的链接，发现还是不行。</p>
+<p>​        再查资料后发现，微博等网站有限制外链，解决方式是在blog中的head.ejs文件中加入一行</p>
+<pre><code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</code></pre><p>​        本人的路径是</p>
+<p>​                blog\themes\landscape\layout_partial\head.ejs</p>
+<p>​        路径基本上都是大同小异。</p>
+<p>​        原理大致是http请求的header中有referrer字段，表示请求的原地址信息，服务器通过referrer来判断请求是否来自本站，若不是就会拦截。把referrer改成no-referrer发送请求时就不会带上referrer使对方服务器无法拦截。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/roadwide/p/10777593.html">https://www.cnblogs.com/roadwide/p/10777593.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/56df73d0d128">https://www.jianshu.com/p/56df73d0d128</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckdqwky2j00002wvz2mfm1o4k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-我的第二篇博客-md" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2-md/" class="article-date">
@@ -286,6 +331,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">关于hexo上传图片的显示问题</a>
+          </li>
         
           <li>
             <a href="/2020/08/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2-md/">浏览器加密和存储密码</a>
