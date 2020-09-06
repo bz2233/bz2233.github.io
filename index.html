@@ -65,6 +65,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-第四篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-09-06T12:53:28.000Z" itemprop="datePublished">2020-09-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">在MATLAB中使用Python</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在B站上看到了Python与MATLAB交互的视频，记录一下方法。</p>
+<p>总的来说，matlab中直接在前面加上py.就可以调用Python的所有用法。</p>
+<p>在MATLAB中使用Python的module</p>
+<p>当写好一个Python脚本之后，想要在MATLAB里运行有几种方法</p>
+<p>1.直接导入：</p>
+<p>​        mod =  py.importlib.import_module(module名)</p>
+<p>2.重新导入：</p>
+<p>​        py.importlib.reload(module名)</p>
+<p>3.将当前文件夹加入到Python搜索路径：</p>
+<p>​        if count(py.sys.path,’’) == 0</p>
+<p>​                insert(py.sys.path,int32(0),’’);</p>
+<p>​        end</p>
+<p>当Python脚本经过修改之后要重新导入才能执行修改后的脚本。</p>
+<p>这个可能存在版本的限制，老版本的MATLAB不一定能实现。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cker6tkey0000t0vz39f21o0c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-我的第三篇博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
@@ -320,7 +370,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -331,6 +381,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">在MATLAB中使用Python</a>
+          </li>
         
           <li>
             <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">关于hexo上传图片的显示问题</a>
