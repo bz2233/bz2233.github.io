@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer" />
+  
+
+  
+  <title>numpy,pandas and matplotlib | ZRD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="​        numpy, pandas 和matplotlib是Python中用于数据分析和画图的几个非常重要的库。想要用Python进行数据分析必须要熟练掌握这几个库，同时机器学习和人工智能算法中也会经常以这些库作为基础，因为都和数据脱不了关系。下面是我对这几个库的一些基础知识的简单总结。 1.numpynumpy提供一个叫做ndarray的数据类型，意思是n维数组(n dimension">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy,pandas and matplotlib">
+<meta property="og:url" content="http://bz2233.github.io/2020/09/07/%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="ZRD">
+<meta property="og:description" content="​        numpy, pandas 和matplotlib是Python中用于数据分析和画图的几个非常重要的库。想要用Python进行数据分析必须要熟练掌握这几个库，同时机器学习和人工智能算法中也会经常以这些库作为基础，因为都和数据脱不了关系。下面是我对这几个库的一些基础知识的简单总结。 1.numpynumpy提供一个叫做ndarray的数据类型，意思是n维数组(n dimension">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/007qvK7egy1giigmxb2cgj305b041q2t.jpg">
+<meta property="article:published_time" content="2020-09-07T02:14:34.000Z">
+<meta property="article:modified_time" content="2020-09-07T14:46:06.584Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/mw690/007qvK7egy1giigmxb2cgj305b041q2t.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="ZRD" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ZRD</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://bz2233.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-第五篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/07/%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-09-07T02:14:34.000Z" itemprop="datePublished">2020-09-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      numpy,pandas and matplotlib
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        numpy, pandas 和matplotlib是Python中用于数据分析和画图的几个非常重要的库。想要用Python进行数据分析必须要熟练掌握这几个库，同时机器学习和人工智能算法中也会经常以这些库作为基础，因为都和数据脱不了关系。下面是我对这几个库的一些基础知识的简单总结。</p>
+<h2 id="1-numpy"><a href="#1-numpy" class="headerlink" title="1.numpy"></a>1.numpy</h2><p>numpy提供一个叫做ndarray的数据类型，意思是n维数组(n dimension array)。与Python自带的列表不同，这种数据类型的结构要高效许多。导包的方法是 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建一个ndarray"><a href="#创建一个ndarray" class="headerlink" title="创建一个ndarray"></a>创建一个ndarray</h3><p>常规是直接使用np.array()方法，返回的就是一个ndarray类型，显示的格式是array(list格式)如：输入np.array([1,2,3])，返回的结果是array([1,2,3]),为ndarray类型。注意np.array()传入的参数要是一个列表。</p>
+<p>如果要创建一个特殊的ndarray矩阵，就要用到np自带的函数来创建。这些函数与MATLAB中的矩阵函数几乎一模一样。比如np.ones(), np.zeros(),np.full()等。内置的变量有shape和dtype等</p>
+<p>如： np.ones(shape=(3,4),dtype=np.float32)返回一个三行四列数据的类型为float32的矩阵</p>
+<p>np.full()里面多了一个参数，要输入填充的值：np.ones(shape=(2,3),fill_value=6)返回一个两行三列数值全为6的矩阵。</p>
+<p>还有两个用来分段的函数np.linspace()和np.arange(),基本的用法是np.linspace(start,stop,num),还可以设置是否开区间还是闭区间。np.arrage(start,stop,step)期中step为步长。两者的作用和用法都差不多。</p>
+<p>还有一些在统计学中的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">np.random.randint(<span class="number">0</span>,<span class="number">150</span>,size=(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))        <span class="comment">#产生两个三行四列的三维数组</span></span><br><span class="line"></span><br><span class="line">np.random.normal(loc,scale,size)        <span class="comment">#正态分布</span></span><br><span class="line"></span><br><span class="line">np.random.randn(size)        <span class="comment">#标准正态分布</span></span><br><span class="line"></span><br><span class="line">np.random.random(size)        <span class="comment">#生成0到1的随机数</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ndarray的四个属性"><a href="#ndarray的四个属性" class="headerlink" title="ndarray的四个属性"></a>ndarray的四个属性</h3><p>ndarray具有四个属性，分别是ndim(维度)，shape(形状),size(总长度),和dtype(元素类型)</p>
+<h3 id="ndarray的基本操作"><a href="#ndarray的基本操作" class="headerlink" title="ndarray的基本操作"></a>ndarray的基本操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n &#x3D; np.random.randint(0,100,size&#x3D;(2,3,4))</span><br></pre></td></tr></table></figure>
+
+<p><strong>索引</strong>：n[1,2,3]表示取出第二个矩阵的第三行四列中的元素，索引下标是从0开始的，逗号是维度的分割。根据索引也可以进行修改能操作。</p>
+<p><strong>切片</strong>：切片也是按照维度进行切片，如n[0:1,1:2,2:3],将数据进行翻转可用n[:,:,::-1]等双冒号后面加-1的方式。</p>
+<p><strong>变形</strong>：用reshape方法，n.reshape((6,4))把一个三维的ndarray改成一个二维六行四列的ndarray矩阵。reshape要求元素的总数保持一致。注意reshape中传入的是一个元组。</p>
+<p><strong>级联</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n1=np.random.randint(<span class="number">0</span>,<span class="number">100</span>,size=(<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">n2=np.random.randint(<span class="number">0</span>,<span class="number">100</span>,size=(<span class="number">3</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">np.concatenate((n1,n2),axis=<span class="number">0</span>)    <span class="comment">#axis=0表示垂直级联 axis=1为水平级联</span></span><br></pre></td></tr></table></figure>
+
+<p>这里因为两个矩阵列数相同行不同所以只能进行垂直级联</p>
+<p>还有一种比较简单的方法，np.vstack((n1,n2))表示垂直级联，np.hstack((n1,n2))表示水平级联。也是都是元组作为参数。</p>
+<p><strong>聚合操作</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n,sum(),n.max(), n.argmin()  <span class="comment">#返回最小值索引</span></span><br><span class="line"></span><br><span class="line">n.any() <span class="comment">#Return True if bool(x) is True for any x in the iterable.</span></span><br><span class="line"></span><br><span class="line">n.all() <span class="comment">#Return True if bool(x) is True for all values x in the iterable.</span></span><br></pre></td></tr></table></figure>
+
+<p>np.nan表示是not a number非数值，当ndarray中含有np.nan元素是在所有的聚合操作前加上nan即可正常运算。如np.nansum()</p>
+<p><strong>矩阵运算：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">m = np.random.randint(<span class="number">0</span>,<span class="number">100</span>,size=(<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">m+<span class="number">1</span> <span class="comment">#矩阵中每个元素都加一</span></span><br><span class="line"></span><br><span class="line">m*m <span class="comment">#矩阵中对应的元素相乘得到与原来矩阵大小一样的矩阵</span></span><br><span class="line"></span><br><span class="line">np.dot(n1,n2) <span class="comment">#对应的是线性代数中矩阵的乘法</span></span><br></pre></td></tr></table></figure>
+
+<p>最后还有一个np.partition()函数，从函数名可以看出这个函数的功能是将矩阵中一部分数据分开。具体的用法是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.partition(m,kth=<span class="number">3</span>)  <span class="comment">#把矩阵中最小的三个数分开来放在矩阵的前三个位置</span></span><br><span class="line"></span><br><span class="line">np.partition(m,kth=<span class="number">-3</span>)  <span class="comment">#把矩阵中最大的三个数分开放在矩阵的最后三位</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-pandas"><a href="#2-pandas" class="headerlink" title="2.pandas"></a>2.pandas</h3><p>pandas中有两个常用的数据结构，Series和DataFrame。series为一维数组，与numpy中的一维ndarray类似，DataFrame为二维的表格型数据结构，可以理解为series的容器。导入方式：</p>
+<p>​        </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="series"><a href="#series" class="headerlink" title="series"></a>series</h3><p>导入：        </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series</span><br></pre></td></tr></table></figure>
+
+<p>series由两个部分组成，分别是values（一位数组，ndarray类型）和index（相关数据的索引标签）</p>
+<p>series有两种创建方式：第一种是由列表或numpy数组创建，默认索引为0到N-1的整数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">l = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">s=Series(l,index=list(<span class="string">&#x27;abc&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>第二种方法是用字典创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = Series(&#123;<span class="string">&#x27;a&#x27;</span>:<span class="number">1</span>,<span class="string">&#x27;b&#x27;</span>:<span class="number">2</span>,<span class="string">&#x27;c&#x27;</span>:<span class="number">3</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>能够得到同样的结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">c    3</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p><strong>索引和切片：</strong></p>
+<p>显示索引：推荐写法为s.loc[‘a’],得到的结果为索引a对应的值1，切片s.loc[‘a’:’b’]，区间是全闭区间。</p>
+<p>隐式索引：推荐写法为s.iloc[0],表示第一个索引所对应的值1，隐式索引的切片区间为左闭右开。s1.loc[[‘a’]]  #再套一层中括号，返回原来的数据类型.</p>
+<p>series具有shape size index values 等属性。</p>
+<h3 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h3><p>导入：        </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> DataFrame</span><br></pre></td></tr></table></figure>
+
+<p>DataFrame可以看做是由Series组成的字典，由三个部分组成行索引index，列索引columns和元素值values（numpy的二维数组）</p>
+<p>DataFrame也有两种创建方式，一种是分块创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data = np.random.randint(<span class="number">60</span>,<span class="number">150</span>,(<span class="number">4</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">columns = [<span class="string">&#x27;语文&#x27;</span>,<span class="string">&#x27;数学&#x27;</span>,<span class="string">&#x27;英语&#x27;</span>,<span class="string">&#x27;理综&#x27;</span>]</span><br><span class="line"></span><br><span class="line">index = [<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;李四&#x27;</span>,<span class="string">&#x27;王五&#x27;</span>,<span class="string">&#x27;赵六&#x27;</span>]</span><br><span class="line"></span><br><span class="line">df = DataFrame(data,index,columns)</span><br></pre></td></tr></table></figure>
+
+<p>一种是字典创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">df = DataFrame(&#123;<span class="string">&#x27;语文&#x27;</span>:np.random.randint(<span class="number">0</span>,<span class="number">150</span>,<span class="number">4</span>),</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;数学&#x27;</span>:np.random.randint(<span class="number">0</span>,<span class="number">150</span>,<span class="number">4</span>),</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;英语&#x27;</span>:np.random.randint(<span class="number">0</span>,<span class="number">150</span>,<span class="number">4</span>),</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;理综&#x27;</span>:np.random.randint(<span class="number">0</span>,<span class="number">150</span>,<span class="number">4</span>)&#125;,index = [<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;李四&#x27;</span>,<span class="string">&#x27;王五&#x27;</span>,<span class="string">&#x27;赵六&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wx3.sinaimg.cn/mw690/007qvK7egy1giigmxb2cgj305b041q2t.jpg" alt="img"></p>
+<p>DataFrame的属性 values columns index shape</p>
+<p><strong>pandas读取文件</strong></p>
+<p>pandas提供了一系列的函数能够读取很多格式的文件，如pd.read_csv(‘文件路径’)可以读取CSV文件，如果在里面加上参数pd.read_csv(‘./pacifier.tsv’,sep=’\t’)则可以读取tsv文件。</p>
+<p><strong>DataFrame的索引和切片</strong></p>
+<p>对列进行索引，推荐写法：df[‘语文’]</p>
+<p>对列切片要用两个中括号并且中间用逗号隔开：df[[‘数学’,’理综’]]</p>
+<p>用隐式索引对列进行切片df.iloc[:,1:4]</p>
+<p>对行进行索引：.loc[index]的显式索引，和.iloc[整数]的隐式索引</p>
+<p>df.loc[‘张三’:’王五’]   #对行切片</p>
+<p>对元素的索引：推荐写法 df.loc[‘李四’,’数学’] 其中逗号也是维度的分割。或者隐式索引df.iloc[1,1]</p>
+<p>至于DataFrame的运算是基于根据索引取出元素的基础上进行。</p>
+<h2 id="matplotlib"><a href="#matplotlib" class="headerlink" title="matplotlib"></a>matplotlib</h2><p>这个库主要用于图像处理和画图。</p>
+<p>导入：        </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.imread(<span class="string">&#x27;图像路径&#x27;</span>)   <span class="comment">#读入图像</span></span><br><span class="line"></span><br><span class="line">plt.imshow(图像名称)   <span class="comment">#显示图像</span></span><br></pre></td></tr></table></figure>
+
+<p>常规的画图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">plt.plot() <span class="comment">#一般的折线图</span></span><br><span class="line"></span><br><span class="line">plt.hist() <span class="comment">#直方图</span></span><br><span class="line"></span><br><span class="line">plt.scatter() <span class="comment">#散点图</span></span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>) <span class="comment">#画子图</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2020/09/07/%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckesn2b6o0000lovz5e4kb6j7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">在MATLAB中使用Python</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/07/%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/">numpy,pandas and matplotlib</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">在MATLAB中使用Python</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">关于hexo上传图片的显示问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2-md/">浏览器加密和存储密码</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">你真的了解猫吗？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
