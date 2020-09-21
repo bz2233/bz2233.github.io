@@ -65,6 +65,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-第八篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-09-21T07:56:40.000Z" itemprop="datePublished">2020-09-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习练习笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">Logistic Regression and Regularization</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        本着一个星期一个练习的进度，这就开始了第二次的练习，其实有很多代码和公式还没搞懂。不过我还是打算保持这种进度，尽量能抽出时间去看视频和练习，代码可以以后慢慢去看。</p>
+<p>​        简单总结，逻辑回归（Logistic Regression）在线性回归的基础上多了一个sigmoid函数</p>
+<p><img src="https://wx4.sinaimg.cn/mw690/007qvK7egy1giydj8lqirj30gn04yq32.jpg" alt="img"></p>
+<p>然后代价函数也有一些相应的调整</p>
+<p><img src="https://wx3.sinaimg.cn/mw690/007qvK7egy1giydjeo4u2j30ep01ewed.jpg" alt="img"></p>
+<p>当假设函数大于等于0.5时，预测为 y=1; 当假设函数小于0.5时，预测 y=0。</p>
+<p>​        在现实的模型训练中往往会产生过拟合的问题，拟合出来的曲线非常贴合样本训练集但测试集的效果则不尽如人意。为了减小过拟合所带来的问题，采取一种手段叫Regularization（正则化），在代价函数的后面加了一项，其中λ称为正则化参数（<strong>Regularization Parameter</strong>）。引入这一项最主要的目的是让高次项接近于0，因为正是那些高次项导致了过拟合的产生。然后再使用梯度下降法。</p>
+<p><img src="https://wx1.sinaimg.cn/mw690/007qvK7egy1giydjlitx1j30mt03974f.jpg" alt="img"></p>
+<p>​        ex2的第一小问是给出了一些学生两次考试的成绩和是否被录取的数据，然后要你给今年刚考完的学生设计一个输入两次考试的成绩预测自己是否能够被录取的模型。</p>
+<p>​        用装疯好的库和默认参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">path = <span class="string">&#x27;ex2data1.txt&#x27;</span></span><br><span class="line">data = pd.read_csv(path, header=<span class="literal">None</span>, names=[<span class="string">&#x27;Exam 1&#x27;</span>, <span class="string">&#x27;Exam 2&#x27;</span>, <span class="string">&#x27;Admitted&#x27;</span>])</span><br><span class="line">data.head()</span><br><span class="line"></span><br><span class="line">positive = data[data[<span class="string">&#x27;Admitted&#x27;</span>].isin([<span class="number">1</span>])] <span class="comment">#选出admitted中为1的点</span></span><br><span class="line">negative = data[data[<span class="string">&#x27;Admitted&#x27;</span>].isin([<span class="number">0</span>])] <span class="comment">#选出admitted中为0的点</span></span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">ax.scatter(positive[<span class="string">&#x27;Exam 1&#x27;</span>], positive[<span class="string">&#x27;Exam 2&#x27;</span>], s=<span class="number">50</span>, c=<span class="string">&#x27;b&#x27;</span>, marker=<span class="string">&#x27;o&#x27;</span>, label=<span class="string">&#x27;Admitted&#x27;</span>)</span><br><span class="line">ax.scatter(negative[<span class="string">&#x27;Exam 1&#x27;</span>], negative[<span class="string">&#x27;Exam 2&#x27;</span>], s=<span class="number">50</span>, c=<span class="string">&#x27;r&#x27;</span>, marker=<span class="string">&#x27;x&#x27;</span>, label=<span class="string">&#x27;Not Admitted&#x27;</span>)</span><br><span class="line">ax.legend()  <span class="comment">#添加图例</span></span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Exam 1 Score&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Exam 2 Score&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wx1.sinaimg.cn/mw690/007qvK7egy1giydjqdpvgj30k70dfq30.jpg" alt="img"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cols = data.shape[<span class="number">1</span>]</span><br><span class="line">X1 = data.iloc[:,<span class="number">0</span>:<span class="number">2</span>] <span class="comment">#分别划分样本特征集合样本数据集</span></span><br><span class="line">y1 = data.iloc[:,<span class="number">2</span>:cols]</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train,X_test,y_train,y_test = train_test_split(X1,y1,test_size=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model<span class="comment">#调用sklearn的线性回归包</span></span><br><span class="line">model = linear_model.LogisticRegression()</span><br><span class="line">model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">model.predict(X_test)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array([1, 0, 0, 1, 1, 0, 0, 1, 0, 1], dtype&#x3D;int64)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckfcbjg9000008svz0o8u2myl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-第七篇博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/09/20/%E7%AC%AC%E4%B8%83%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
@@ -637,6 +692,10 @@
       <ul>
         
           <li>
+            <a href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">Logistic Regression and Regularization</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/20/%E7%AC%AC%E4%B8%83%E7%AF%87%E5%8D%9A%E5%AE%A2/">《让子弹飞》对老三的分析</a>
           </li>
         
@@ -650,10 +709,6 @@
         
           <li>
             <a href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">在MATLAB中使用Python</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">关于hexo上传图片的显示问题</a>
           </li>
         
       </ul>
