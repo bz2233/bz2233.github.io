@@ -6,17 +6,17 @@
   
 
   
-  <title>在MATLAB中使用Python | ZRD</title>
+  <title>51单片机的系统指令 | ZRD</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在B站上看到了Python与MATLAB交互的视频，记录一下方法。 总的来说，matlab中直接在前面加上py.就可以调用Python的所有用法。 在MATLAB中使用Python的module 当写好一个Python脚本之后，想要在MATLAB里运行有几种方法 1.直接导入： ​        mod &#x3D;  py.importlib.import_module(module名) 2.重新导入：">
+  <meta name="description" content="51单片机的指令格式：                                    操作数    目的操作数,源操作数        ；注释 ():用于注释中表示存储单元的内容，即括号内的地址所对应的内容 2.1.1    立即寻址 直接给出操作数的寻址方称为立即寻址。立即数用前面加“#”号的8位数或16位数表示。 123MOV    A,#80H        ;A&#x3D;80HM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在MATLAB中使用Python">
-<meta property="og:url" content="http://bz2233.github.io/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="51单片机的系统指令">
+<meta property="og:url" content="http://bz2233.github.io/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="ZRD">
-<meta property="og:description" content="在B站上看到了Python与MATLAB交互的视频，记录一下方法。 总的来说，matlab中直接在前面加上py.就可以调用Python的所有用法。 在MATLAB中使用Python的module 当写好一个Python脚本之后，想要在MATLAB里运行有几种方法 1.直接导入： ​        mod &#x3D;  py.importlib.import_module(module名) 2.重新导入：">
+<meta property="og:description" content="51单片机的指令格式：                                    操作数    目的操作数,源操作数        ；注释 ():用于注释中表示存储单元的内容，即括号内的地址所对应的内容 2.1.1    立即寻址 直接给出操作数的寻址方称为立即寻址。立即数用前面加“#”号的8位数或16位数表示。 123MOV    A,#80H        ;A&#x3D;80HM">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-06T12:53:28.000Z">
-<meta property="article:modified_time" content="2020-09-06T14:24:22.932Z">
+<meta property="article:published_time" content="2020-10-03T15:35:21.000Z">
+<meta property="article:modified_time" content="2020-10-04T01:31:26.917Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -68,7 +68,7 @@
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-第四篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-第十篇博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
      
         <!-- 不蒜子统计 -->
@@ -76,8 +76,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time datetime="2020-09-06T12:53:28.000Z" itemprop="datePublished">2020-09-06</time>
+<a href="/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-10-03T15:35:21.000Z" itemprop="datePublished">2020-10-03</time>
 </a>
     
   </div>
@@ -88,7 +88,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      在MATLAB中使用Python
+      51单片机的系统指令
     </h1>
   
 
@@ -96,25 +96,37 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在B站上看到了Python与MATLAB交互的视频，记录一下方法。</p>
-<p>总的来说，matlab中直接在前面加上py.就可以调用Python的所有用法。</p>
-<p>在MATLAB中使用Python的module</p>
-<p>当写好一个Python脚本之后，想要在MATLAB里运行有几种方法</p>
-<p>1.直接导入：</p>
-<p>​        mod =  py.importlib.import_module(module名)</p>
-<p>2.重新导入：</p>
-<p>​        py.importlib.reload(module名)</p>
-<p>3.将当前文件夹加入到Python搜索路径：</p>
-<p>​        if count(py.sys.path,’’) == 0</p>
-<p>​                insert(py.sys.path,int32(0),’’);</p>
-<p>​        end</p>
-<p>当Python脚本经过修改之后要重新导入才能执行修改后的脚本。</p>
-<p>这个可能存在版本的限制，老版本的MATLAB不一定能实现。</p>
+        <p>51单片机的指令格式：<br>                                    <strong>操作数    目的操作数,源操作数        ；注释</strong></p>
+<p>():用于注释中表示存储单元的内容，<strong>即括号内的地址所对应的内容</strong></p>
+<p>2.1.1    立即寻址</p>
+<p>直接给出操作数的寻址方称为立即寻址。立即数用前面加“#”号的8位数或16位数表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV    A,#80H        ;A&#x3D;80H</span><br><span class="line"></span><br><span class="line">MOV    DPTR,#2000H        ;DPTR&#x3D;2000H</span><br></pre></td></tr></table></figure>
+
+<p>2.1.2    直接寻址</p>
+<p>指令中给出操作数所在的地址的地址的寻址方式称为直接寻址。寻址对象：1内部数据存储器RAM，在指令中以直接地址表示；2特殊功能寄存器SFR，在指令中用寄存器名表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MOV    A,25H        ;内部RAM的25H地址所对应的数据给到A A&#x3D;（25H）</span><br><span class="line"></span><br><span class="line">MOV    P0,#45H        ；把45H送到P0</span><br><span class="line"></span><br><span class="line">MOV    30H,20H        ;内部RAM的（30H） &#x3D; （20H）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.1.3    寄存器寻址</p>
+<p>以通用寄存器的内容为操作数的寻址方式称为寄存器寻址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MOV    A,R0        ;A&#x3D;R0</span><br><span class="line"></span><br><span class="line">MUL    AB            ;BA&#x3D;A*B,B为高8位，A为低8位</span><br><span class="line"></span><br><span class="line">MOV    B,R0        ；</span><br><span class="line"></span><br><span class="line">PUSH    ACC        ；A压入堆栈</span><br><span class="line"></span><br><span class="line">ADD    A,ACC        ；A&#x3D;A+A</span><br></pre></td></tr></table></figure>
+
+<p>2.1.4    寄存器间接寻址</p>
+<p>以寄存器中的内容为地址，改地址中的内容为操作数的寻址方式称为寄存器间接寻址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOV    @R0,A        ;(R0) &#x3D; A</span><br><span class="line"></span><br><span class="line">MOVX    A,@R1        ;A&#x3D;(P2 R1) 由于是外部寻址所以是外部RAM中地址为P2 R1的内容</span><br><span class="line"></span><br><span class="line">MOVX    @DPTR,A        ;(DPTR) &#x3D; A</span><br></pre></td></tr></table></figure>
+
+<p>2.1.5    变址寻址</p>
+<p>变址寻址只能对程序存储器中的数据作寻址操作。一般来说，变址寻址只有读操作没有写操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOVC    A,@A+DPTR        ;A &#x3D; (A+DPTR)</span><br><span class="line"></span><br><span class="line">MOVC    A,@A+PC        ;A&#x3D;(A+PC)</span><br></pre></td></tr></table></figure>
+
+<p>2.1.6    相对寻址</p>
+<p>注意PC永远指向下一条指令的地址，所以应考虑指令是几个字节的指令</p>
+<p>2.1.7    位寻址</p>
+<p>2.2.2    交换指令</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://bz2233.github.io/2020/09/06/%E7%AC%AC%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cker6tkey0000t0vz39f21o0c" class="article-share-link">Share</a>
+      <a data-url="http://bz2233.github.io/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckfwe4pbi0001hwvz2kz94rg6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -123,19 +135,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/07/%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/10/05/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          numpy,pandas and matplotlib
+          Neural Networks
         
       </div>
     </a>
   
   
-    <a href="/2020/08/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/09/29/%E7%AC%AC%E4%B9%9D%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">关于hexo上传图片的显示问题</div>
+      <div class="article-nav-title">通信电子电路第二章</div>
     </a>
   
 </nav>
