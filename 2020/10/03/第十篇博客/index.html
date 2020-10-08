@@ -16,7 +16,7 @@
 <meta property="og:description" content="51单片机的指令格式：                                    操作数    目的操作数,源操作数        ；注释 ():用于注释中表示存储单元的内容，即括号内的地址所对应的内容 2.1.1    立即寻址 直接给出操作数的寻址方称为立即寻址。立即数用前面加“#”号的8位数或16位数表示。 123MOV    A,#80H        ;A&#x3D;80HM">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-03T15:35:21.000Z">
-<meta property="article:modified_time" content="2020-10-04T01:31:26.917Z">
+<meta property="article:modified_time" content="2020-10-06T23:19:14.185Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -122,6 +122,50 @@
 <p>注意PC永远指向下一条指令的地址，所以应考虑指令是几个字节的指令</p>
 <p>2.1.7    位寻址</p>
 <p>2.2.2    交换指令</p>
+<p>字节交换指令</p>
+<p>XCH     A,Rn</p>
+<p>XCH    A,dir</p>
+<p>XCH    A,@Ri</p>
+<p>低半字节交换指令</p>
+<p>XCHD    A,@Ri        ;Ri的低四位和和A的低四位交换</p>
+<p>A的高、低半字节交换</p>
+<p>SWAP    A</p>
+<p>2.3.2 以A为操作数的算术运算符合逻辑运算指令</p>
+<p>ADD    A,@Ri        ;加法，没有进位</p>
+<p>ADDC     A,@dir    ;进位加，即两数相加后还需要加上进位CY</p>
+<p>SUBB    A,Rn        ;借位减</p>
+<p>ANL    A,#data        ;与</p>
+<p>ORL    A,@Ri        ;或</p>
+<p>XRL     A,@Ri        ;异或</p>
+<p>一个数与0异或结果不变，与1异或结果取反。</p>
+<p>2.3.4 加1，减1指令</p>
+<p>INC    A        ；自加1</p>
+<p>DEC    A        ；自减1</p>
+<p>2.3.5 十进制调整指令</p>
+<p>DA    A        ；将A中二进制数相加和调整成BCD码</p>
+<p>2.3.6     专对A的指令</p>
+<p>CPL    A        ;对A取反</p>
+<p>CLR    A        ;清零</p>
+<p>RL    A        ;左环移</p>
+<p>RR    A        ;右环移</p>
+<p>RLC    A        ;左大环移</p>
+<p>RRC    A        ;右大环移</p>
+<p>2.3.7    乘、除法指令</p>
+<p>MUL    AB        ；A*B-&gt;BA</p>
+<p>16位积的高8位在B中，低8位在A中</p>
+<p>DIV    AB        ；A/B-&gt;商在A中，余数在B中</p>
+<p>2.4.1    调用程序和返回类指令</p>
+<p>LCALL    addr16        ;addr16-&gt;PC0~15</p>
+<p>ACALL    addr11        ;addr11-&gt;PC0~10</p>
+<p>其中长调用为3字节指令，短调用为2字节指令</p>
+<p>执行长调用或短调用指令时，首先要求出下一条指令的首地址即As（调用指令首地址）+3（调用指令长度）-&gt;PC</p>
+<p>然后进行入栈操作，入栈是先加后压：SP+1-&gt;SP,PC0-7-&gt;SP,SP+1-&gt;SP,PC8-15-&gt;SP</p>
+<p>最后PC=addr16</p>
+<p>子程序返回指令</p>
+<p>RET        ；从栈顶弹出断点到PC，从子程序返回主程序。是入栈的反操作</p>
+<p>RETI        ；从中断服务程序返回</p>
+<p>2.4.2    转移指令</p>
+<p>无条件转移指令</p>
 
       
     </div>
@@ -163,7 +207,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E6%83%B3/">乱七八想</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习练习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%94%B5%E5%AD%90%E7%94%B5%E8%B7%AF/">通信电子电路</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E6%83%B3/">乱七八想</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习练习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%94%B5%E5%AD%90%E7%94%B5%E8%B7%AF/">通信电子电路</a></li></ul>
     </div>
   </div>
 
@@ -191,6 +235,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/07/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/">排序</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/05/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">Neural Networks</a>
           </li>
         
@@ -204,10 +252,6 @@
         
           <li>
             <a href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">Logistic Regression and Regularization</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/20/%E7%AC%AC%E4%B8%83%E7%AF%87%E5%8D%9A%E5%AE%A2/">《让子弹飞》对老三的分析</a>
           </li>
         
       </ul>
