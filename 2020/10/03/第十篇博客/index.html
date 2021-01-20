@@ -16,7 +16,7 @@
 <meta property="og:description" content="51单片机的指令格式：                                    操作数    目的操作数,源操作数        ；注释 ():用于注释中表示存储单元的内容，即括号内的地址所对应的内容 2.1.1    立即寻址 直接给出操作数的寻址方称为立即寻址。立即数用前面加“#”号的8位数或16位数表示。 123MOV    A,#80H        ;A&#x3D;80HM">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-03T15:35:21.000Z">
-<meta property="article:modified_time" content="2020-10-06T23:19:14.185Z">
+<meta property="article:modified_time" content="2020-10-23T11:39:43.555Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -166,6 +166,36 @@
 <p>RETI        ；从中断服务程序返回</p>
 <p>2.4.2    转移指令</p>
 <p>无条件转移指令</p>
+<p>短转移</p>
+<p>AJMP    addr11        ;addr11-&gt;PC0-10</p>
+<p>长转移</p>
+<p>LJMP    addr16        ;addr16-&gt;PC0-15</p>
+<p>间接转移</p>
+<p>JMP    @A+DPTR        ；A+DPTR-&gt;PC</p>
+<p>无条件相对转移</p>
+<p>SJMP    rel        ;PC+rel-&gt;PC</p>
+<p>条件转移指令</p>
+<p>累加器为零，非零转移</p>
+<p>JZ    rel        ;A=0转移（PC+rel -&gt;PC）,A != 0 程序顺序执行</p>
+<p>JNZ    rel        ;对上面的程序取反</p>
+<p>减一非零转移</p>
+<p>DJNZ    Rn，rel        ；Rn = Rn - 1，然后判断Rn是否为0，为0转移，不为零顺序执行</p>
+<p>改指令有自动减1的功能</p>
+<p>比较转移</p>
+<p>CJNE    A,dir,rel        ;比较A和dir是否相等，相等则顺序执行，不相等则转移</p>
+<p>空操作指令</p>
+<p>NOP        ；用来产生一个机器周期的延时</p>
+<p>2.5        位操作指令</p>
+<p>CLR    bit        ;位清零</p>
+<p>SETB    bit        ；置1</p>
+<p>CPL    bit        ；位取反</p>
+<p>ANL    C,bit        ；位与</p>
+<p>ORL    C,bit        ；位或</p>
+<p>MOV    C,bit        ;位传送</p>
+<p>JC    rel        ；CY=1，则转移（PC+rel-&gt;PC），否则顺序执行</p>
+<p>JNC    rel        ;上一步的取反操作</p>
+<p>JB    bit，rel        ；bit=1则转移（PC+rel-&gt;PC），否则顺序执行</p>
+<p>JNB    bit，rel        ；上一步的取反操作</p>
 
       
     </div>
@@ -235,23 +265,23 @@
       <ul>
         
           <li>
+            <a href="/2020/10/10/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之map</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之set</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/08/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之vector</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/07/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/">排序</a>
           </li>
         
           <li>
             <a href="/2020/10/05/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">Neural Networks</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/">51单片机的系统指令</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/29/%E7%AC%AC%E4%B9%9D%E7%AF%87%E5%8D%9A%E5%AE%A2/">通信电子电路第二章</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">Logistic Regression and Regularization</a>
           </li>
         
       </ul>
@@ -266,7 +296,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
+      &copy; 2021 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

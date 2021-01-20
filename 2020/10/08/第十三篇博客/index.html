@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer" />
+  
+
+  
+  <title>C++常用STL之vector | ZRD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="​        当想开一个数组，但不确定数组的长度，这时候就可以用到动态数组。数组的长度可以根据我们的需要而动态改变。C++中动态数组写作vector。 ​        引用 #include  using namespace std; 定义动态数组 vector vec;    &#x2F;&#x2F;定义一个名为vec的存储T类型的动态数组 插入元素 vec.push_back(value);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++常用STL之vector">
+<meta property="og:url" content="http://bz2233.github.io/2020/10/08/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="ZRD">
+<meta property="og:description" content="​        当想开一个数组，但不确定数组的长度，这时候就可以用到动态数组。数组的长度可以根据我们的需要而动态改变。C++中动态数组写作vector。 ​        引用 #include  using namespace std; 定义动态数组 vector vec;    &#x2F;&#x2F;定义一个名为vec的存储T类型的动态数组 插入元素 vec.push_back(value);">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-08T14:33:07.000Z">
+<meta property="article:modified_time" content="2020-10-08T15:15:49.127Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="ZRD" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ZRD</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://bz2233.github.io"></form>
+      </div>
+    </div>
+  </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-第十三篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+     
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/10/08/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-10-08T14:33:07.000Z" itemprop="datePublished">2020-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++常用STL之vector
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        当想开一个数组，但不确定数组的长度，这时候就可以用到动态数组。数组的长度可以根据我们的需要而动态改变。C++中动态数组写作vector。</p>
+<p>​        引用</p>
+<p>#include <vector></vector></p>
+<p>using namespace std;</p>
+<p>定义动态数组</p>
+<p>vector<T> vec;    //定义一个名为vec的存储T类型的动态数组</T></p>
+<p>插入元素</p>
+<p>vec.push_back(value);        //在数组最后插入一个新的元素</p>
+<p>获取长度和访问元素使用vec.size() 用[]访问vector中的元素</p>
+<p>for (int i = 0;i &lt; vec.size();i++){<br>    cout &lt;&lt; vec[i] &lt;&lt; endl;<br>}</p>
+<p>修改元素可以通过直接赋值的方法</p>
+<p>删除元素用vec.pop_back()删除数组中最后一个元素</p>
+<p>vec.pop_back()</p>
+<p>这个练习是输出一个n行m个元素的锯齿矩阵，即每一行的元素个数都不一样。也就是说行数是确定的但是列数不确定，这里可以开一个数组向量，行数是固定的，列数是可以动态变化的。给你m个（x,y）向量表示在第x行插入元素y。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; mat[<span class="number">10005</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m,x,y;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        mat[x].push_back(y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span> ;j &lt; mat[i].<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (j != mat[i].<span class="built_in">size</span>() - <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; mat[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; mat[i][j] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2020/10/08/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckk42mgyg00000gvzes6tb2rq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/09/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C++常用STL之set
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/07/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">排序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E6%83%B3/">乱七八想</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习练习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%94%B5%E5%AD%90%E7%94%B5%E8%B7%AF/">通信电子电路</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/10/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之map</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之set</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/08/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之vector</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/07/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/">排序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">Neural Networks</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        </span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv" style='display:none'>
+                本站访客数<span id="busuanzi_value_site_uv"></span>人
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
