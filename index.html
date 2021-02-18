@@ -66,6 +66,72 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-第十八篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+     
+<a href="/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2021-02-18T06:29:35.000Z" itemprop="datePublished">2021-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">深度优先搜索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>输入为一个10 X 9 的矩阵代表一个象棋棋盘，’ . ‘代表已经该处没有棋子 ，’ # ‘则代表该处有棋子，样例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.#....#S#</span><br><span class="line">..#.#.#..</span><br><span class="line">..##.#..#</span><br><span class="line">......##.</span><br><span class="line">...T.....</span><br><span class="line">...#.#...</span><br><span class="line">...#.....</span><br><span class="line">...###...</span><br><span class="line">.........</span><br><span class="line">.##......</span><br></pre></td></tr></table></figure>
+
+<p>其中S代表马所在的位置，T表示目的地。想要知道有没有一种路径能使马从S走到T位置。</p>
+<p>首先从main函数开始</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> s[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span> ; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i][j] == <span class="string">&#x27;S&#x27;</span>)&#123;</span><br><span class="line">                x = i;</span><br><span class="line">                y = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(x,y);</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>整体的框架为，先定义一个二维数组，找到马所在的位置，然后进行深度优先搜索，根据搜索的结果进行输出。</p>
+<p>然后开始写dfs函数</p>
+<p>根据马行进的规则，一个马可能的走法有八种，把所有的可能的方向写在一个二维数组里面</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dir[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">-1</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>该二维数组定义了马走的八个方向和走每个方向时x y 坐标的增量</p>
+<p>dfs 函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (f)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[x][y] == <span class="string">&#x27;T&#x27;</span>) &#123;</span><br><span class="line">        f = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> tx =  x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ty =  y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (in(tx,ty) &amp;&amp; s[tx][ty] != <span class="string">&#x27;#&#x27;</span> &amp;&amp; vis[tx][ty]) &#123;</span><br><span class="line">            dfs(tx,ty);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码中可以看出当进入搜索之后首先把该处的坐标标记为true表示该处已经访问过，如果f为true 则返回，如果坐标到达了T处把f 标记为true然后返回，然后对八个方向进行深度优先搜索，对每一个方向进行移动，如果移动之后的坐标在棋盘范围类并且该处没有棋子并且该处没有被访问过（防止重复访问）然后每一个方向递归走到不能再走为止。</p>
+<p>上述的dfs算法是只要找到一条路径就行，如果想要找出最短路径还需要对dfs 进行优化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> <span class="built_in">step</span>)</span></span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[x][y] == <span class="string">&#x27;T&#x27;</span>) &#123;</span><br><span class="line">        f = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">step</span> &lt; ans)&#123;</span><br><span class="line">            ans = <span class="built_in">step</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span> ; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> tx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ty = y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (in(tx,ty) &amp;&amp; s[tx][ty] != <span class="string">&#x27;#&#x27;</span> &amp;&amp; !vis[tx][ty]) &#123;</span><br><span class="line">            dfs(tx,ty,<span class="built_in">step</span> + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在算法中加一个变量step记录每一次搜索的步数，每一次到达终点时进行比较，取最小值。</p>
+<p>在最后要把该访问的记录变为false。</p>
+<p>完整代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dir[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">-1</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="keyword">bool</span> f;</span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">1000000</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">in</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> &lt;= x &amp;&amp; x &lt; <span class="number">10</span> &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> <span class="built_in">step</span>)</span></span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[x][y] == <span class="string">&#x27;T&#x27;</span>) &#123;</span><br><span class="line">        f = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">step</span> &lt; ans)&#123;</span><br><span class="line">            ans = <span class="built_in">step</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span> ; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> tx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ty = y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (in(tx,ty) &amp;&amp; s[tx][ty] != <span class="string">&#x27;#&#x27;</span> &amp;&amp; !vis[tx][ty]) &#123;</span><br><span class="line">            dfs(tx,ty,<span class="built_in">step</span> + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span> ; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i][j] == <span class="string">&#x27;S&#x27;</span>)&#123;</span><br><span class="line">                x = i;</span><br><span class="line">                y = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(x,y,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cklakuk1200005kvz567tgp7k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-第十七篇博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
      
@@ -651,62 +717,6 @@
 
 
   
-    <article id="post-第八篇博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-     
-<a href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time datetime="2020-09-21T07:56:40.000Z" itemprop="datePublished">2020-09-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习练习笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">Logistic Regression and Regularization</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​        本着一个星期一个练习的进度，这就开始了第二次的练习，其实有很多代码和公式还没搞懂。不过我还是打算保持这种进度，尽量能抽出时间去看视频和练习，代码可以以后慢慢去看。</p>
-<p>​        简单总结，逻辑回归（Logistic Regression）在线性回归的基础上多了一个sigmoid函数</p>
-<p><img src="https://wx4.sinaimg.cn/mw690/007qvK7egy1giydj8lqirj30gn04yq32.jpg" alt="img"></p>
-<p>然后代价函数也有一些相应的调整</p>
-<p><img src="https://wx3.sinaimg.cn/mw690/007qvK7egy1giydjeo4u2j30ep01ewed.jpg" alt="img"></p>
-<p>当假设函数大于等于0.5时，预测为 y=1; 当假设函数小于0.5时，预测 y=0。</p>
-<p>​        在现实的模型训练中往往会产生过拟合的问题，拟合出来的曲线非常贴合样本训练集但测试集的效果则不尽如人意。为了减小过拟合所带来的问题，采取一种手段叫Regularization（正则化），在代价函数的后面加了一项，其中λ称为正则化参数（<strong>Regularization Parameter</strong>）。引入这一项最主要的目的是让高次项接近于0，因为正是那些高次项导致了过拟合的产生。然后再使用梯度下降法。</p>
-<p><img src="https://wx1.sinaimg.cn/mw690/007qvK7egy1giydjlitx1j30mt03974f.jpg" alt="img"></p>
-<p>​        ex2的第一小问是给出了一些学生两次考试的成绩和是否被录取的数据，然后要你给今年刚考完的学生设计一个输入两次考试的成绩预测自己是否能够被录取的模型。</p>
-<p>​        用封装好的库和默认参数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">path = <span class="string">&#x27;ex2data1.txt&#x27;</span></span><br><span class="line">data = pd.read_csv(path, header=<span class="literal">None</span>, names=[<span class="string">&#x27;Exam 1&#x27;</span>, <span class="string">&#x27;Exam 2&#x27;</span>, <span class="string">&#x27;Admitted&#x27;</span>])</span><br><span class="line">data.head()</span><br><span class="line"></span><br><span class="line">positive = data[data[<span class="string">&#x27;Admitted&#x27;</span>].isin([<span class="number">1</span>])] <span class="comment">#选出admitted中为1的点</span></span><br><span class="line">negative = data[data[<span class="string">&#x27;Admitted&#x27;</span>].isin([<span class="number">0</span>])] <span class="comment">#选出admitted中为0的点</span></span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">ax.scatter(positive[<span class="string">&#x27;Exam 1&#x27;</span>], positive[<span class="string">&#x27;Exam 2&#x27;</span>], s=<span class="number">50</span>, c=<span class="string">&#x27;b&#x27;</span>, marker=<span class="string">&#x27;o&#x27;</span>, label=<span class="string">&#x27;Admitted&#x27;</span>)</span><br><span class="line">ax.scatter(negative[<span class="string">&#x27;Exam 1&#x27;</span>], negative[<span class="string">&#x27;Exam 2&#x27;</span>], s=<span class="number">50</span>, c=<span class="string">&#x27;r&#x27;</span>, marker=<span class="string">&#x27;x&#x27;</span>, label=<span class="string">&#x27;Not Admitted&#x27;</span>)</span><br><span class="line">ax.legend()  <span class="comment">#添加图例</span></span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Exam 1 Score&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Exam 2 Score&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://wx1.sinaimg.cn/mw690/007qvK7egy1giydjqdpvgj30k70dfq30.jpg" alt="img"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cols = data.shape[<span class="number">1</span>]</span><br><span class="line">X1 = data.iloc[:,<span class="number">0</span>:<span class="number">2</span>] <span class="comment">#分别划分样本特征集合样本数据集</span></span><br><span class="line">y1 = data.iloc[:,<span class="number">2</span>:cols]</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train,X_test,y_train,y_test = train_test_split(X1,y1,test_size=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model<span class="comment">#调用sklearn的线性回归包</span></span><br><span class="line">model = linear_model.LogisticRegression()</span><br><span class="line">model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">model.predict(X_test)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array([1, 0, 0, 1, 1, 0, 0, 1, 0, 1], dtype&#x3D;int64)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://bz2233.github.io/2020/09/21/%E7%AC%AC%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckfcbjg9000008svz0o8u2myl" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -756,6 +766,10 @@
       <ul>
         
           <li>
+            <a href="/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">深度优先搜索</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/04/%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++ stack</a>
           </li>
         
@@ -769,10 +783,6 @@
         
           <li>
             <a href="/2020/10/09/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之set</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/08/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之vector</a>
           </li>
         
       </ul>

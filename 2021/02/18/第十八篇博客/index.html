@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer" />
+  
+
+  
+  <title>深度优先搜索 | ZRD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="输入为一个10 X 9 的矩阵代表一个象棋棋盘，’ . ‘代表已经该处没有棋子 ，’ # ‘则代表该处有棋子，样例： 12345678910.#....#S#..#.#.#....##.#..#......##....T........#.#......#........###.............##......  其中S代表马所在的位置，T表示目的地。想要知道有没有一种路径能使马从S走到T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度优先搜索">
+<meta property="og:url" content="http://bz2233.github.io/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="ZRD">
+<meta property="og:description" content="输入为一个10 X 9 的矩阵代表一个象棋棋盘，’ . ‘代表已经该处没有棋子 ，’ # ‘则代表该处有棋子，样例： 12345678910.#....#S#..#.#.#....##.#..#......##....T........#.#......#........###.............##......  其中S代表马所在的位置，T表示目的地。想要知道有没有一种路径能使马从S走到T">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-18T06:29:35.000Z">
+<meta property="article:modified_time" content="2021-02-18T08:03:02.998Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="ZRD" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ZRD</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://bz2233.github.io"></form>
+      </div>
+    </div>
+  </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-第十八篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+     
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2021-02-18T06:29:35.000Z" itemprop="datePublished">2021-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深度优先搜索
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>输入为一个10 X 9 的矩阵代表一个象棋棋盘，’ . ‘代表已经该处没有棋子 ，’ # ‘则代表该处有棋子，样例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.#....#S#</span><br><span class="line">..#.#.#..</span><br><span class="line">..##.#..#</span><br><span class="line">......##.</span><br><span class="line">...T.....</span><br><span class="line">...#.#...</span><br><span class="line">...#.....</span><br><span class="line">...###...</span><br><span class="line">.........</span><br><span class="line">.##......</span><br></pre></td></tr></table></figure>
+
+<p>其中S代表马所在的位置，T表示目的地。想要知道有没有一种路径能使马从S走到T位置。</p>
+<p>首先从main函数开始</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> s[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span> ; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i][j] == <span class="string">&#x27;S&#x27;</span>)&#123;</span><br><span class="line">                x = i;</span><br><span class="line">                y = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(x,y);</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>整体的框架为，先定义一个二维数组，找到马所在的位置，然后进行深度优先搜索，根据搜索的结果进行输出。</p>
+<p>然后开始写dfs函数</p>
+<p>根据马行进的规则，一个马可能的走法有八种，把所有的可能的方向写在一个二维数组里面</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dir[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">-1</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>该二维数组定义了马走的八个方向和走每个方向时x y 坐标的增量</p>
+<p>dfs 函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (f)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[x][y] == <span class="string">&#x27;T&#x27;</span>) &#123;</span><br><span class="line">        f = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> tx =  x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ty =  y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (in(tx,ty) &amp;&amp; s[tx][ty] != <span class="string">&#x27;#&#x27;</span> &amp;&amp; vis[tx][ty]) &#123;</span><br><span class="line">            dfs(tx,ty);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码中可以看出当进入搜索之后首先把该处的坐标标记为true表示该处已经访问过，如果f为true 则返回，如果坐标到达了T处把f 标记为true然后返回，然后对八个方向进行深度优先搜索，对每一个方向进行移动，如果移动之后的坐标在棋盘范围类并且该处没有棋子并且该处没有被访问过（防止重复访问）然后每一个方向递归走到不能再走为止。</p>
+<p>上述的dfs算法是只要找到一条路径就行，如果想要找出最短路径还需要对dfs 进行优化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> <span class="built_in">step</span>)</span></span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[x][y] == <span class="string">&#x27;T&#x27;</span>) &#123;</span><br><span class="line">        f = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">step</span> &lt; ans)&#123;</span><br><span class="line">            ans = <span class="built_in">step</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span> ; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> tx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ty = y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (in(tx,ty) &amp;&amp; s[tx][ty] != <span class="string">&#x27;#&#x27;</span> &amp;&amp; !vis[tx][ty]) &#123;</span><br><span class="line">            dfs(tx,ty,<span class="built_in">step</span> + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在算法中加一个变量step记录每一次搜索的步数，每一次到达终点时进行比较，取最小值。</p>
+<p>在最后要把该访问的记录变为false。</p>
+<p>完整代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dir[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">1</span>&#125;, &#123;<span class="number">-2</span>,<span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">1</span>,<span class="number">-2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">-1</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="keyword">bool</span> f;</span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">1000000</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">in</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> &lt;= x &amp;&amp; x &lt; <span class="number">10</span> &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> <span class="built_in">step</span>)</span></span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[x][y] == <span class="string">&#x27;T&#x27;</span>) &#123;</span><br><span class="line">        f = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">step</span> &lt; ans)&#123;</span><br><span class="line">            ans = <span class="built_in">step</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span> ; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> tx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ty = y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (in(tx,ty) &amp;&amp; s[tx][ty] != <span class="string">&#x27;#&#x27;</span> &amp;&amp; !vis[tx][ty]) &#123;</span><br><span class="line">            dfs(tx,ty,<span class="built_in">step</span> + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span> ; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i][j] == <span class="string">&#x27;S&#x27;</span>)&#123;</span><br><span class="line">                x = i;</span><br><span class="line">                y = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(x,y,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cklakuk1200005kvz567tgp7k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/02/04/%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C++ stack</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E6%83%B3/">乱七八想</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习练习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%94%B5%E5%AD%90%E7%94%B5%E8%B7%AF/">通信电子电路</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/18/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AF%87%E5%8D%9A%E5%AE%A2/">深度优先搜索</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/04/%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++ stack</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/20/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AF%87%E5%8D%9A%E5%AE%A2/">我是谁</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/10/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之map</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之set</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        </span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv" style='display:none'>
+                本站访客数<span id="busuanzi_value_site_uv"></span>人
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
