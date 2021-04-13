@@ -66,6 +66,143 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-第十篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+     
+<a href="/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-10-03T15:35:21.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/">51单片机的系统指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>51单片机的指令格式：<br>                                    <strong>操作数    目的操作数,源操作数        ；注释</strong></p>
+<p>():用于注释中表示存储单元的内容，<strong>即括号内的地址所对应的内容</strong></p>
+<p>2.1.1    立即寻址</p>
+<p>直接给出操作数的寻址方称为立即寻址。立即数用前面加“#”号的8位数或16位数表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV    A,#80H        ;A&#x3D;80H</span><br><span class="line"></span><br><span class="line">MOV    DPTR,#2000H        ;DPTR&#x3D;2000H</span><br></pre></td></tr></table></figure>
+
+<p>2.1.2    直接寻址</p>
+<p>指令中给出操作数所在的地址的地址的寻址方式称为直接寻址。寻址对象：1内部数据存储器RAM，在指令中以直接地址表示；2特殊功能寄存器SFR，在指令中用寄存器名表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MOV    A,25H        ;内部RAM的25H地址所对应的数据给到A A&#x3D;（25H）</span><br><span class="line"></span><br><span class="line">MOV    P0,#45H        ；把45H送到P0</span><br><span class="line"></span><br><span class="line">MOV    30H,20H        ;内部RAM的（30H） &#x3D; （20H）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.1.3    寄存器寻址</p>
+<p>以通用寄存器的内容为操作数的寻址方式称为寄存器寻址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MOV    A,R0        ;A&#x3D;R0</span><br><span class="line"></span><br><span class="line">MUL    AB            ;BA&#x3D;A*B,B为高8位，A为低8位</span><br><span class="line"></span><br><span class="line">MOV    B,R0        ；</span><br><span class="line"></span><br><span class="line">PUSH    ACC        ；A压入堆栈</span><br><span class="line"></span><br><span class="line">ADD    A,ACC        ；A&#x3D;A+A</span><br></pre></td></tr></table></figure>
+
+<p>2.1.4    寄存器间接寻址</p>
+<p>以寄存器中的内容为地址，改地址中的内容为操作数的寻址方式称为寄存器间接寻址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOV    @R0,A        ;(R0) &#x3D; A</span><br><span class="line"></span><br><span class="line">MOVX    A,@R1        ;A&#x3D;(P2 R1) 由于是外部寻址所以是外部RAM中地址为P2 R1的内容</span><br><span class="line"></span><br><span class="line">MOVX    @DPTR,A        ;(DPTR) &#x3D; A</span><br></pre></td></tr></table></figure>
+
+<p>2.1.5    变址寻址</p>
+<p>变址寻址只能对程序存储器中的数据作寻址操作。一般来说，变址寻址只有读操作没有写操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOVC    A,@A+DPTR        ;A &#x3D; (A+DPTR)</span><br><span class="line"></span><br><span class="line">MOVC    A,@A+PC        ;A&#x3D;(A+PC)</span><br></pre></td></tr></table></figure>
+
+<p>2.1.6    相对寻址</p>
+<p>注意PC永远指向下一条指令的地址，所以应考虑指令是几个字节的指令</p>
+<p>2.1.7    位寻址</p>
+<p>2.2.2    交换指令</p>
+<p>字节交换指令</p>
+<p>XCH     A,Rn</p>
+<p>XCH    A,dir</p>
+<p>XCH    A,@Ri</p>
+<p>低半字节交换指令</p>
+<p>XCHD    A,@Ri        ;Ri的低四位和和A的低四位交换</p>
+<p>A的高、低半字节交换</p>
+<p>SWAP    A</p>
+<p>2.3.2 以A为操作数的算术运算符合逻辑运算指令</p>
+<p>ADD    A,@Ri        ;加法，没有进位</p>
+<p>ADDC     A,@dir    ;进位加，即两数相加后还需要加上进位CY</p>
+<p>SUBB    A,Rn        ;借位减</p>
+<p>ANL    A,#data        ;与</p>
+<p>ORL    A,@Ri        ;或</p>
+<p>XRL     A,@Ri        ;异或</p>
+<p>一个数与0异或结果不变，与1异或结果取反。</p>
+<p>2.3.4 加1，减1指令</p>
+<p>INC    A        ；自加1</p>
+<p>DEC    A        ；自减1</p>
+<p>2.3.5 十进制调整指令</p>
+<p>DA    A        ；将A中二进制数相加和调整成BCD码</p>
+<p>2.3.6     专对A的指令</p>
+<p>CPL    A        ;对A取反</p>
+<p>CLR    A        ;清零</p>
+<p>RL    A        ;左环移</p>
+<p>RR    A        ;右环移</p>
+<p>RLC    A        ;左大环移</p>
+<p>RRC    A        ;右大环移</p>
+<p>2.3.7    乘、除法指令</p>
+<p>MUL    AB        ；A*B-&gt;BA</p>
+<p>16位积的高8位在B中，低8位在A中</p>
+<p>DIV    AB        ；A/B-&gt;商在A中，余数在B中</p>
+<p>2.4.1    调用程序和返回类指令</p>
+<p>LCALL    addr16        ;addr16-&gt;PC0~15</p>
+<p>ACALL    addr11        ;addr11-&gt;PC0~10</p>
+<p>其中长调用为3字节指令，短调用为2字节指令</p>
+<p>执行长调用或短调用指令时，首先要求出下一条指令的首地址即As（调用指令首地址）+3（调用指令长度）-&gt;PC</p>
+<p>然后进行入栈操作，入栈是先加后压：SP+1-&gt;SP,PC0-7-&gt;SP,SP+1-&gt;SP,PC8-15-&gt;SP</p>
+<p>最后PC=addr16</p>
+<p>子程序返回指令</p>
+<p>RET        ；从栈顶弹出断点到PC，从子程序返回主程序。是入栈的反操作</p>
+<p>RETI        ；从中断服务程序返回</p>
+<p>2.4.2    转移指令</p>
+<p>无条件转移指令</p>
+<p>短转移</p>
+<p>AJMP    addr11        ;addr11-&gt;PC0-10</p>
+<p>长转移</p>
+<p>LJMP    addr16        ;addr16-&gt;PC0-15</p>
+<p>间接转移</p>
+<p>JMP    @A+DPTR        ；A+DPTR-&gt;PC</p>
+<p>无条件相对转移</p>
+<p>SJMP    rel        ;PC+rel-&gt;PC</p>
+<p>条件转移指令</p>
+<p>累加器为零，非零转移</p>
+<p>JZ    rel        ;A=0转移（PC+rel -&gt;PC）,A != 0 程序顺序执行</p>
+<p>JNZ    rel        ;对上面的程序取反</p>
+<p>减一非零转移</p>
+<p>DJNZ    Rn，rel        ；Rn = Rn - 1，然后判断Rn是否为0，为0转移，不为零顺序执行</p>
+<p>改指令有自动减1的功能</p>
+<p>比较转移</p>
+<p>CJNE    A,dir,rel        ;比较A和dir是否相等，相等则顺序执行，不相等则转移</p>
+<p>空操作指令</p>
+<p>NOP        ；用来产生一个机器周期的延时</p>
+<p>2.5        位操作指令</p>
+<p>CLR    bit        ;位清零</p>
+<p>SETB    bit        ；置1</p>
+<p>CPL    bit        ；位取反</p>
+<p>ANL    C,bit        ；位与</p>
+<p>ORL    C,bit        ；位或</p>
+<p>MOV    C,bit        ;位传送</p>
+<p>JC    rel        ；CY=1，则转移（PC+rel-&gt;PC），否则顺序执行</p>
+<p>JNC    rel        ;上一步的取反操作</p>
+<p>JB    bit，rel        ；bit=1则转移（PC+rel-&gt;PC），否则顺序执行</p>
+<p>JNB    bit，rel        ；上一步的取反操作</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bz2233.github.io/2020/10/03/%E7%AC%AC%E5%8D%81%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckfwe4pbi0001hwvz2kz94rg6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-第九篇博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
      
@@ -661,61 +798,11 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-     
-<a href="/2020/07/20/hello-world/" class="article-date">
-  <time datetime="2020-07-20T05:45:35.961Z" itemprop="datePublished">2020-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/20/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://bz2233.github.io/2020/07/20/hello-world/" data-id="ckd74ss360000a8vz1y4b2w4d" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
   </nav>
 <span id="busuanzi_container_page_pv">
    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -747,7 +834,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -758,6 +845,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/04/13/%E4%BA%8C%E5%8D%81/">并查集</a>
+          </li>
         
           <li>
             <a href="/2021/02/23/%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AF%87%E5%8D%9A%E5%AE%A2/">等边三角形</a>
@@ -773,10 +864,6 @@
         
           <li>
             <a href="/2021/01/20/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AF%87%E5%8D%9A%E5%AE%A2/">我是谁</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/10/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/">C++常用STL之map</a>
           </li>
         
       </ul>
